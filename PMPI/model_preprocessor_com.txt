@@ -1,0 +1,5 @@
+PMPI模型前处理的命令：
+python model_preprocessor.py model_path data_path PLANES
+
+以fern_32layers_nex为例：
+python model_preprocessor.py D:\jxg\PMPI\output\runs\layers\layers\model\fern_32layers_nex D:\jxg\PMPI\Other_methods\PointNeRF\data_src\llff\fern\train 32

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>806</width>
+    <height>617</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GraphRender</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(33, 33, 33)</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="MyRender" name="Render">
+         <property name="minimumSize">
+          <size>
+           <width>640</width>
+           <height>360</height>
+          </size>
+         </property>
+         <property name="mouseTracking">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(94, 94, 94)</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QFrame" name="MonitorArea">
+         <property name="minimumSize">
+          <size>
+           <width>640</width>
+           <height>140</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>140</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(94, 94, 94)</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255, 255, 255)</string>
+                </property>
+                <property name="text">
+                 <string>GPU:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255, 255, 255)</string>
+                </property>
+                <property name="text">
+                 <string>CPU:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <widget class="MyResourceTracker" name="GPUTrack">
+                <property name="styleSheet">
+                 <string notr="true">QProgressBar {
+  border: 2px ;
+  border-radius: 2px;
+  background-color: rgb(214, 214, 214);
+  text-align: center;
+color: transparent;
+}
+
+QProgressBar::chunk {
+  background-color: rgb(0, 150, 255);
+  border-radius: 2px;
+}
+</string>
+                </property>
+                <property name="value">
+                 <number>24</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="MyResourceTracker" name="CPUTrack">
+                <property name="styleSheet">
+                 <string notr="true">QProgressBar {
+  border: 2px ;
+  border-radius: 2px;
+  background-color: rgb(214, 214, 214);
+  text-align: center;
+color: transparent;
+}
+
+QProgressBar::chunk {
+  background-color: rgb(0, 150, 255);
+  border-radius: 2px;
+}
+</string>
+                </property>
+                <property name="value">
+                 <number>24</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QLabel" name="GPURate">
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255,255,255)</string>
+                </property>
+                <property name="text">
+                 <string>0%</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="CPURate">
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255,255,255)</string>
+                </property>
+                <property name="text">
+                 <string>0%</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" rowspan="2">
+        <widget class="QFrame" name="ControlArea">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>500</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(94, 94, 94)</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="AlgotithmOption">
+          <property name="geometry">
+           <rect>
+            <x>13</x>
+            <y>13</y>
+            <width>62</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255)</string>
+          </property>
+          <property name="text">
+           <string>Mode:</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="listWidget">
+          <property name="geometry">
+           <rect>
+            <x>13</x>
+            <y>37</y>
+            <width>74</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QListWidget {
+    background-color: rgb(94, 94, 94);
+    font-family: Arial;
+    font-size: 12pt;
+}
+
+QListWidget::item {
+    height: 30px;
+    background-color: transparent;
+    border: 1px;
+    color: white;
+}
+
+QListWidget::item:selected {
+    background-color: rgb(33, 33, 33);
+}
+
+QListWidget::item:hover {
+    background-color: rgb(66, 66, 66);
+}
+
+QListWidget::item:selected:active {
+    background-color: rgb(33, 33, 33);
+    color: white;
+}
+
+
+</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="itemAlignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <item>
+           <property name="text">
+            <string>mode 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>mode 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>mode 3</string>
+           </property>
+          </item>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>806</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyRender</class>
+   <extends>QLabel</extends>
+   <header location="global">myrender.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyResourceTracker</class>
+   <extends>QProgressBar</extends>
+   <header location="global">myresourcetracker.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
