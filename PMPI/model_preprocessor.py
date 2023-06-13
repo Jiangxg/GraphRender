@@ -22,6 +22,7 @@ def main():
     output_reference_camera = model_path + r'\reference_camera.txt'
     output_information = model_path + r'\information.txt'
     output_patches_no = model_path + r'\patches_depth_no.txt'
+    output_planes = model_path + r'\planes.txt'
     PLANES = int(sys.argv[3])
     print("PLANES:{}".format(PLANES))
 
@@ -64,8 +65,18 @@ def main():
     intrinsics_inverse = np.linalg.inv(intrinsics)
 
     # construct depths : [PLANES, ROWS*COLS] depth
-    depths = np.dstack([np.linspace(depth_start[i,j], depth_end[i,j], num=PLANES) for i in range(ROWS) for j in range(COLS)])
+    ## 深度如何排列，需要使用模式判断！！！
+    depths_inv = np.dstack([np.linspace(1. / depth_start[i,j], 1. / depth_end[i,j], num=PLANES) for i in range(ROWS) for j in range(COLS)])
+    depths = 1. / depths_inv
     depths = np.squeeze(depths)
+    depths = np.transpose(depths)
+    
+    
+    # planes: (depthMin, depthMax)
+    planes = np.ones((1, 2))
+    planes[0, 0] = depths.min()
+    planes[0, 1] = depths.max()
+    np.savetxt(output_planes, planes, fmt='%0.8f')
 
     # PMPI_center: [ROWS, COLS, 3], xp, yp, 1
     PMPI_center = np.empty((ROWS, COLS, 3))
@@ -79,7 +90,7 @@ def main():
 
     # Patches: [PLANES, ROWS*COLS, 3]
     Patches = np.matmul(intrinsics_inverse, np.expand_dims(PMPI_center, axis=3))
-    Patches = np.repeat(np.expand_dims(Patches, axis=0), PLANES, axis=0).reshape(PLANES, ROWS*COLS, 3)
+    Patches = np.repeat(np.expand_dims(Patches, axis=0), PLANES, axis=2).reshape(ROWS*COLS, PLANES, 3)
     
     Patches[..., 0] = (Patches[..., 0] / Patches[..., 2]) * depths
     Patches[..., 1] = (Patches[..., 1] / Patches[..., 2]) * depths
@@ -101,21 +112,26 @@ def main():
     Patches = np.append(Patches, Patches_half, axis=1)
     
 
-    # construct Patches_no: [PLANES*ROWS*COLS, 1]
-    Patches_no = np.empty((PLANES, ROWS*COLS, 1))
+    # construct Patches_no: [PLANES*ROWS*COLS, 3]
+    Patches_no = np.empty((ROWS, COLS, PLANES, 3))
     for i in range(PLANES):
-        Patches_no[i, :, 0] = i + 1
-    Patches_no = Patches_no.reshape((-1, 1))
+        Patches_no[:, :, i, 2] = i + 1
+    
+    for i in range(ROWS):
+        Patches_no[i, :, :, 0] = i + 1
+    
+    for i in range(COLS):
+        Patches_no[:, i, :, 1] = i + 1
+    
+    Patches_no = Patches_no.reshape((-1, 3))
     # sort Patches_no:
-    Patches_no = Patches_no[np.argsort(Patches[:, 2])]
+    #Patches_no = Patches_no[np.argsort(Patches[:, 2])]
 
     # save Patches_no
     np.savetxt(output_patches_no, Patches_no, fmt='%d')
 
     # sort Patches in the order of front-to-back dp
-    Patches = Patches[np.argsort(Patches[:, 2])]
-
-
+    #Patches = Patches[np.argsort(Patches[:, 2])]
 
     # save patches.txt
     np.savetxt(output_patches, Patches, fmt='%0.8f')
