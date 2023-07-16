@@ -5,6 +5,11 @@ The project is implemented in C++ and CUDA, without OpenGL.
 
 ## Installation
 We provide a compile.sh file to compile this project.
+```shell
+cd workdir/GraphRender
+chmod 777 compile.sh
+./compile.sh
+```
 
 ## Model for Rendering
 For now, GraphRender only supports our proposed PMPI model.
