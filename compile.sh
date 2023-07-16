@@ -1,4 +1,3 @@
-cd /home/jxg/jxg/GraphRender
 nvcc -arch=compute_86 -c PMPI/display.cu
 nvcc -arch=compute_86 -c PMPI/aabb/src/intersect_gpu.cu
 ar rcs libdisplaydemo.a display.o intersect_gpu.o
